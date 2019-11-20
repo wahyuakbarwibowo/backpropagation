@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .vertical {
+            margin-top: 50%;
+        }
+        
+        .citra {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .citra-hasil {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 class='text-center p-md-3'>Artificial Neural Networks</h1>
+    <div class='container'>
+        <h2 class="text-center">Training</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="komposisi" id='komposisiLabel'>Komposisi</label>
+                <input type="range" class="custom-range" min="5" max="95" step="1" value='80' id="komposisi" name='komposisi'>
+                <input type="hidden" id="mode" name="mode" value="Training">
+            </div>
+            <div class="form-inline">
+                <label for="learningrate" class="mr-sm-2">Learning rate (Recommended to input 0 until 0.1):</label>
+                <input type="text" class="form-control mb-2 mr-sm-5" id="learningrate" name="learningrate" placeholder="Learning Rate ">
+                <label for="epochs" class="mr-sm-2">Epochs:</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="epochs" name="epochs" placeholder="Epochs">
+            </div>
+            <button class="btn btn-primary" type="submit">Train</button>
+        </form>
+        <script>
+            var komposisi = document.getElementById('komposisi');
+            var komposisiLabel = document.getElementById('komposisiLabel')
+            komposisiLabel.innerHTML = 'Komposisi : ' + komposisi.value + '% training, ' + (100 - komposisi.value) + '% testing'
+            komposisi.onchange = function() {
+                var testing = 100 - this.value
+                komposisiLabel.innerHTML = 'Komposisi : ' + this.value + '% training, ' + testing + '% testing';
+            }
+            komposisi.oninput = function() {
+                var testing = 100 - this.value
+                komposisiLabel.innerHTML = 'Komposisi : ' + this.value + '% training, ' + testing + '% testing';
+            }
+        </script>
+        {% if mode is defined %}
+        <br> {% if mode=='Testing' %}
+        <span class="text-justify">
+            <h3>Training selesai</h3>
+            <h4> Akurasi model training untuk data test : {{ hasil_training }} % </h4>
+        </span>{% endif %} {% endif %}
+
+        <h2 class="text-center">Testing</h2>
+        <h4 class="text-center">Choose one image or input file image to testing</h4>
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col">
+                    <img class="mx-auto d-block citra" src="./static/assets/img/0.png">
+                    <br>
+                    <div class="radio">
+                        <input class="mx-auto d-block" type="radio" name="optradioimg" value="0">
+                    </div>
+                </div>
+                <div class="col">
+                    <img class="mx-auto d-block citra" src="./static/assets/img/1.png">
+                    <br>
+                    <div class="radio">
+                        <input class="mx-auto d-block" type="radio" name="optradioimg" value="1">
+                    </div>
+                </div>
+                <div class="col">
+                    <img class="mx-auto d-block citra" src="./static/assets/img/2.png">
+                    <br>
+                    <div class="radio">
+                        <input class="mx-auto d-block" type="radio" name="optradioimg" value="2">
+                    </div>
+                </div>
+                <div class="col">
+                    <img class="mx-auto d-block citra" src="./static/assets/img/3.png">
+                    <br>
+                    <div class="radio">
+                        <input class="mx-auto d-block" type="radio" name="optradioimg" value="3">
+                    </div>
+                </div>
+                <div class="col">
+                    <img class="mx-auto d-block citra" src="./static/assets/img/4.png">
+                    <br>
+                    <div class="radio">
+                        <input class="mx-auto d-block" type="radio" name="optradioimg" value="4">
+                    </div>
+                </div>
+
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <img class="mx-auto d-block citra" src="./static/assets/img/5.png">
+                    <br>
+                    <div class="radio">
+                        <input class="mx-auto d-block" type="radio" name="optradioimg" value="5">
+                    </div>
+                </div>
+                <div class="col">
+                    <img class="mx-auto d-block citra" src="./static/assets/img/6.png">
+                    <br>
+                    <div class="radio">
+                        <input class="mx-auto d-block" type="radio" name="optradioimg" value="6">
+                    </div>
+                </div>
+                <div class="col">
+                    <img class="mx-auto d-block citra" src="./static/assets/img/7.png">
+                    <br>
+                    <div class="radio">
+                        <input class="mx-auto d-block" type="radio" name="optradioimg" value="7">
+                    </div>
+                </div>
+                <div class="col">
+                    <img class="mx-auto d-block citra" src="./static/assets/img/8.png">
+                    <br>
+                    <div class="radio">
+                        <input class="mx-auto d-block" type="radio" name="optradioimg" value="8">
+                    </div>
+                </div>
+                <div class="col">
+                    <img class="mx-auto d-block citra" src="./static/assets/img/9.png">
+                    <br>
+                    <div class="radio">
+                        <input class="mx-auto d-block" type="radio" name="optradioimg" value="9">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="custom-file">
+                        <input id='inputFile' type="file" class="custom-file-input" name="query_img_upload">
+                        <label id='labelInputFile' class="custom-file-label" for="inputFile">Choose Image Test (opsional)</label>
+                    </div>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary">Test</button>
+                </div>
+            </div>
+            <input type="hidden" name="mode" value="Testing">
+        </form>
+
+        <br> {% if url_image is defined %}
+        <div class='row'>
+            <div class='col'>
+                <img class='mx-auto d-block citra-hasil' src="{{ url_image }}" alt="citra test">
+            </div>
+            <div class='col'>
+                <h3 class='text'>Kelas : {{ kelas[0] }}</h3>
+            </div>
+        </div>
+        <br><br> {% endif %}
+    </div>
+
+</body>
+
+</html>
