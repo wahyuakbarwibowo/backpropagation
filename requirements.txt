@@ -15,7 +15,7 @@ google-pasta==0.1.8
 grpcio==1.53.2
 gunicorn==22.0.0
 h5py==2.10.0
-idna==2.8
+idna==3.7
 isort==4.3.16
 itsdangerous==1.1.0
 Jinja2==3.1.4
